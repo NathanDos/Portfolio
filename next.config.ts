@@ -5,9 +5,7 @@ const nextConfig = {
     unoptimized: true, // Mandatory for static HTML exports
   },
   reactStrictMode: true,
-  allowedDevOrigins: ['192.168.86.22'],
-  basePath: '/Portfolio',
-  assetPrefix: '/Portfolio/',
+  allowedDevOrigins: ['192.168.86.22']
 };
 
 module.exports = nextConfig;
