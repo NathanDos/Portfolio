@@ -32,9 +32,6 @@ jobs:
       - name: Build with Next.js 🏗️
         run: npx next build
 
-      - name: Add CNAME file 🏷️
-        run: echo "nathan.dossantosfamily.com" > ./out/CNAME
-
       - name: Upload artifact 📡
         uses: actions/upload-pages-artifact@v3
         with:
