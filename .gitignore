@@ -2,7 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-package-lock.json
 node_modules/
 .next/
 eslint.config.mjs
