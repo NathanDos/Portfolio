@@ -1,2 +1,5 @@
 # Portfolio
-Git hosted portfolio
+Git hosted portfolio on custom domain
+
+# SSG (Static Site Generator) 
+Next.js
