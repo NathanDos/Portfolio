@@ -5,7 +5,6 @@
 package-lock.json
 node_modules/
 .next/
-next.config.js
 eslint.config.mjs
 .vscode/settings.json
 next-env.d.ts
