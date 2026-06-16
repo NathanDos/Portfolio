@@ -2,7 +2,14 @@
 
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+//Custom Hooks
 import { useOutsideClick } from "../hooks/use-outside-click";
+import { useOverflowMask } from "../hooks/use-overflow-mask";
+//Custom Components
+import { FadeOverlay } from "./styling/fade-overlay";
+import { CloseIcon } from "./ui/close-button";
+//Data
+import { cards } from "../data/portfolio-cards";
 
 export default function ExpandableCard() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
@@ -10,6 +17,7 @@ export default function ExpandableCard() {
   );
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
+  const {scrollRef, showMask, handleScroll } = useOverflowMask(active);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -115,8 +123,11 @@ export default function ExpandableCard() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    ref={scrollRef}
+                    onScroll={handleScroll}
+                    className={`text-neutral-600 text-xs md:text-sm lg:text-base max-h-100 pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]`}
                   >
+                    <FadeOverlay show={showMask} size="lg"/>
                     {typeof active.content === "function"
                       ? active.content()
                       : active.content}
@@ -166,101 +177,3 @@ export default function ExpandableCard() {
     </>
   );
 }
-
-export const CloseIcon = () => {
-  return (
-    <motion.svg
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-        transition: {
-          duration: 0.05,
-        },
-      }}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 text-black"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </motion.svg>
-  );
-};
-
-const cards = [
-  {
-    description: "Date-time conversion calculator",
-    title: "Khronos",
-    src: "/assets/Chronos.png",
-    ctaText: "",
-    ctaLink: "",
-    content: () => {
-      return (
-        <p>
-          C++ Project date-time conversion calculator.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Dart learner/starter project",
-    title: "Dartpedia",
-    src: "/assets/Dart.png",
-    ctaText: "Repository",
-    ctaLink: "https://github.com/NathanDos/dartpedia",
-    content: () => {
-      return (
-        <p>
-          Dartpedia is a simple application that serves as a learning resource for the Dart programming language.
-        </p>
-      );
-    },
-  },
-
-  {
-    description: "Statistical data analysis on a subset of numbers",
-    title: "NewComb-Benford Statistics",
-    src: "/assets/NewcombBenfordLaw.png",
-    ctaText: "",
-    ctaLink: "",
-    content: () => {
-      return (
-        <p>
-          Statistical data analysis on a subset of numbers based on the Newcomb-Benford law with graphs and command line arguements in C++. 
-          The Newcomb-Benford law, also known as Benford's law, is a statistical phenomenon that describes the frequency distribution of leading digits in many real-world datasets.
-           According to this law, in many naturally occurring datasets, the leading digit d (from 1 to 9) occurs with a probability of P(d) = log10(d + 1) - log10(d) = log10(1 + 1/d). 
-           This means that in many datasets, the number 1 appears as the leading digit about 30% of the time, while larger digits appear less frequently. 
-           This law has applications in various fields, including fraud detection and data analysis.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Python ",
-    title: "Read Files From Google Drive",
-    src: "/assets/GoogleDrive.png",
-    ctaText: "Repository",
-    ctaLink: "https://github.com/NathanDos/ReadFromGoogleDrive",
-    content: () => {
-      return (
-        <p>
-          Simple script to read files from google drive using the google drive API in python. 
-          The script uses the google drive API to read files from google drive and print the content of the file. 
-        </p>
-      );
-    },
-  },
-];
