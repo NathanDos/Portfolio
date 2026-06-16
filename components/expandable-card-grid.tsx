@@ -204,7 +204,7 @@ const cards = [
   {
     description: "Date-time conversion calculator",
     title: "Khronos",
-    src: "/assets/chronos.png",
+    src: "/assets/Chronos.png",
     ctaText: "",
     ctaLink: "",
     content: () => {
@@ -233,7 +233,7 @@ const cards = [
   {
     description: "Statistical data analysis on a subset of numbers",
     title: "NewComb-Benford Statistics",
-    src: "/assets/NewCombBenfordLaw.png",
+    src: "/assets/NewcombBenfordLaw.png",
     ctaText: "",
     ctaLink: "",
     content: () => {
