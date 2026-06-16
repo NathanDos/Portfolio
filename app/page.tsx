@@ -1,3 +1,6 @@
+import ExpandableCard from "../components/expandable-card-grid"
+
 export default function Page() {
-  return <h1>Nathan Dos Santos' Portfolio</h1>
+  return <ExpandableCard />
+
 }
