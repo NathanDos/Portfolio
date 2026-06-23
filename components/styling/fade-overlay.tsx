@@ -8,7 +8,7 @@ const sizeMap = {
   md: "h-16",
   lg: "h-32",
 };
-
+//Overlay with a gradient that fades out the content behind it, used to indicate that there is more content to scroll through
 export function FadeOverlay({ show, size = "md" }: FadeOverlayProps) {
   return (
     <div

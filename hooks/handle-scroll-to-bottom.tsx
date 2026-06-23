@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-// Handle scroll to bottom of a div and return whether the user is at the bottom or not
+// Handle scroll to bottom of an element and return whether the user is at the bottom or not
 export function handleScrollToBottom(dep: unknown) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(false);
@@ -10,7 +10,7 @@ export function handleScrollToBottom(dep: unknown) {
     setIsAtBottom(false);
   }, [dep]);
 
-  // Check if the user is at the bottom of the div on scroll
+  // Check if the user is at the bottom of an element
   const handleScroll = () => {
     const element = scrollRef.current;
     if (!element) return;
