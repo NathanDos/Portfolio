@@ -4,7 +4,6 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 //Custom Hooks
 import { useOutsideClick } from "../hooks/use-outside-click";
-import { useOverflowMask } from "../hooks/use-overflow-mask";
 //Custom Components
 import { CloseIcon } from "./ui/close-button";
 import { ExpandedCardContent } from "./expandable-card-content";
@@ -16,7 +15,6 @@ export default function ExpandableCard() {
 
   const id = useId();
   const animatedGridRef = useRef<HTMLDivElement>(null);
-  const {scrollRef, showMask, handleScroll } = useOverflowMask(active);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
