@@ -36,8 +36,6 @@ export function handleNavbar(navSize: number = 50) {
             window.removeEventListener('scroll', handleScrollEvent);
         };
     }, [navSize]);
-        useEffect(() => {
-        console.log("isVisible:", isVisible);
-    }, [isVisible]);
+
     return { isVisible };
 }
