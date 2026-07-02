@@ -24,7 +24,7 @@ export default function Navbar() {
         >
             <div className="text-lg font-bold">Nathan Dos Santos' Portfolio</div>
             <ul className="flex space-x-4">
-                <li><a href="https://dossantosfamily.com" className="hover:text-gray-400">Home</a></li>
+                <li><a href="#top" className="hover:text-gray-400">Home</a></li>
             </ul>
         </motion.nav>
         <motion.div layout transition={{ duration: DURATION }} animate={{ height: `${isVisible ? elementHeight : 0}px` }}></motion.div>
