@@ -10,7 +10,7 @@ import { ExpandedCardContent } from "./expandable-card-content";
 //Data
 import { cards } from "../data/portfolio-cards";
 
-export default function ExpandableCard() {
+export default function ExpandableCardGrid() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(null);
 
   const id = useId();
