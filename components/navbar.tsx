@@ -4,6 +4,8 @@ import { motion } from "motion/react";
 //Custom Hooks
 import { handleNavbar } from "@/hooks/handle-navbar";
 import { UseResizeObserver } from "@/hooks/use-resize-observer";
+//Custom Theme Provider Component
+import {ThemeToggle} from "./styling/theme-toggle";
 
 export default function Navbar() {
     // Hooks
@@ -29,6 +31,7 @@ export default function Navbar() {
                 <li><a href="#strengths" className="hover:text-gray-400">Strengths</a></li>
                 <li><a href="#projects" className="hover:text-gray-400">Projects</a></li>
                 <li><a href="#footer-section" className="hover:text-gray-400">Contact</a></li>
+                <ThemeToggle className="hover:text-gray-400"/>
             </ul>
         </motion.nav>
         <motion.div layout transition={{ duration: DURATION }} animate={{ height: `${isVisible ? elementHeight : 0}px` }}></motion.div>

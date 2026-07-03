@@ -1,5 +1,7 @@
-import "./globals.css";
 
+import "./globals.css";
+import { ThemeProvider } from "@/components/provider/ThemeProvider";
+  
 export default function RootLayout({
   children,
 }: {
@@ -7,8 +9,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scrollbar-none">
-      <body>
-        {children}
+      <body className="bg-white text-black dark:bg-black dark:text-white">
+        <ThemeProvider children={children} />
       </body>
     </html>
   )
