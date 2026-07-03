@@ -19,7 +19,7 @@ import { cn } from "../lib/utils";
 //Custom Hooks
 import { useOutsideClick } from "../hooks/use-outside-click";
 //Custom UI Components
-import { BlurImage } from "./ui/blur-image";
+import { BlurImage } from "./styling/blur-image";
 
 
 
