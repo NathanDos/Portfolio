@@ -3,7 +3,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 //Custom Hooks
-import { useOutsideClick } from "../hooks/use-outside-click";
+import { useOutsideClick } from "@/hooks/use-outside-click";
 //Custom Components
 import { CloseIcon } from "./ui/close-button";
 import { ExpandedCardContent } from "./expandable-card-content";

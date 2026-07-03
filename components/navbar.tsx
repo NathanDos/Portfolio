@@ -2,8 +2,8 @@
 //node_modules
 import { motion } from "motion/react";
 //Custom Hooks
-import { handleNavbar } from "../hooks/handle-navbar";
-import { UseResizeObserver } from "../hooks/use-resize-observer";
+import { handleNavbar } from "@/hooks/handle-navbar";
+import { UseResizeObserver } from "@/hooks/use-resize-observer";
 
 export default function Navbar() {
     // Hooks
@@ -25,6 +25,10 @@ export default function Navbar() {
             <div className="text-lg font-bold">Nathan Dos Santos' Portfolio</div>
             <ul className="flex space-x-4">
                 <li><a href="#top" className="hover:text-gray-400">Home</a></li>
+                <li><a href="#work-experience" className="hover:text-gray-400">Work Experience</a></li>
+                <li><a href="#strengths" className="hover:text-gray-400">Strengths</a></li>
+                <li><a href="#projects" className="hover:text-gray-400">Projects</a></li>
+                <li><a href="#footer-section" className="hover:text-gray-400">Contact</a></li>
             </ul>
         </motion.nav>
         <motion.div layout transition={{ duration: DURATION }} animate={{ height: `${isVisible ? elementHeight : 0}px` }}></motion.div>
