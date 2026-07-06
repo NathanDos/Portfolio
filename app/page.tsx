@@ -1,30 +1,24 @@
 "use client";
 //Custom Components
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/navbar";
 import ScrollingWorkInformation from "@/components/scrolling-work-information";
-import StrengthsCarousel from "@/components/strengths-carousel-content"
-import ExpandableCardGrid from "@/components/expandable-card-grid"
+import CarouselBuilder from "@/components/carousel-builder";
+import ExpandableCardGrid from "@/components/expandable-card-grid";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 
-
-
-
-
-
 export default function Page() {
-
   return (
     <>
       <Navbar />
-      <TracingBeam >
+      <TracingBeam>
         <section id="work-experience" />
-          <ScrollingWorkInformation />
+        <ScrollingWorkInformation />
         <section id="strengths" />
-          <StrengthsCarousel />
+        <CarouselBuilder />
         <section id="projects" />
-          <ExpandableCardGrid/>
+        <ExpandableCardGrid />
       </TracingBeam>
-        <section id="footer-section" />
+      <section id="footer-section" />
     </>
-  )
+  );
 }

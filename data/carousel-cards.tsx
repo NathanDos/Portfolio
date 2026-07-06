@@ -1,5 +1,5 @@
 "use client";
-import { CardType } from "@/components/cards-carousel";
+import { CardType } from "@/components/carousel-cards";
 
 export const CarouselCardsData : () => CardType[] = () => [
       {
