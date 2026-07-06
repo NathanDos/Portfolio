@@ -34,7 +34,7 @@ export default function Navbar() {
           <NavItem href='#strengths' text='Strengths' />
           <NavItem href='#projects' text='Projects' />
           <NavItem href='#footer-section' text='Contact' />
-          <ThemeToggle className='hover:text-gray-400' />
+          <ThemeToggle />
         </ul>
       </motion.nav>
       <motion.div

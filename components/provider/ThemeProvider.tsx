@@ -1,8 +1,8 @@
-"use client";
+'use client';
+//react modules
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import { createContext, useContext, useEffect, useState } from "react";
-
-type Theme = "light" | "dark";
+type Theme = 'light' | 'dark';
 
 type ThemeContextType = {
   theme: Theme;
@@ -12,11 +12,11 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const getSystemTheme = (): Theme => {
-  if (typeof window === "undefined") return "light";
+  if (typeof window === 'undefined') return 'light';
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
 };
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -24,9 +24,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   //Resolve initial theme (localStorage → system fallback)
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
+    const stored = localStorage.getItem('theme');
 
-    if (stored === "light" || stored === "dark") {
+    if (stored === 'light' || stored === 'dark') {
       setTheme(stored);
     } else {
       setTheme(getSystemTheme());
@@ -37,31 +37,33 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!theme) return;
 
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
   //Listen for system theme changes
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
 
     const handler = () => {
-      const stored = localStorage.getItem("theme");
+      const stored = localStorage.getItem('theme');
 
-      if (stored !== "light" && stored !== "dark") {
-        setTheme(media.matches ? "dark" : "light");
+      if (stored !== 'light' && stored !== 'dark') {
+        setTheme(media.matches ? 'dark' : 'light');
       }
     };
 
-    media.addEventListener("change", handler);
-    return () => media.removeEventListener("change", handler);
+    media.addEventListener('change', handler);
+    return () => media.removeEventListener('change', handler);
   }, []);
 
   //Update theme manually
   const updateTheme = (t: Theme) => {
     setTheme(t);
-    localStorage.setItem("theme", t);
+    localStorage.setItem('theme', t);
   };
+
   if (!theme) return null; // Render nothing until theme is resolved
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme: updateTheme }}>
       {children}
@@ -71,6 +73,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export const useTheme = () => {
   const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
   return ctx;
 };

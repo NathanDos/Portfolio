@@ -1,24 +1,23 @@
-"use client";
+'use client';
+//node_modules
+import { Switch } from '@headlessui/react';
+//Custom Theme Provider Component
+import { useTheme } from '../provider/ThemeProvider';
 
-import { useTheme } from "../provider/ThemeProvider";
-
-export function ThemeToggle( { className }: { className?: string } ) {
+export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <button
+    <Switch
+      checked={theme === 'dark'}
       onClick={() =>
         setTheme(
-          theme === "light"
-            ? "dark"
-            : theme === "dark"
-              ? "light"
-              : "dark"
+          theme === 'light' ? 'dark' : theme === 'dark' ? 'light' : 'dark',
         )
       }
-      className={className}
+      className='group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-checked:bg-blue-600'
     >
-      Theme: {theme}
-    </button>
+      <span className='size-4 translate-x-1 rounded-full bg-white transition group-data-checked:translate-x-6' />
+    </Switch>
   );
 }
