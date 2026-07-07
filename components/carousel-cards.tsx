@@ -1,10 +1,12 @@
-"use client";
+'use client';
 //node_modules
-import React, { useEffect, useState, createContext, JSX } from "react";
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
-import { motion } from "motion/react";
+import React, { useEffect, useState, createContext, JSX } from 'react';
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from '@tabler/icons-react';
+import { motion } from 'motion/react';
 //Utils
-import { cn } from "../lib/utils";
+import { cn } from '../lib/utils';
+//Custom Hooks
+import { UseResizeObserver } from '@/hooks/use-resize-observer';
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -37,6 +39,17 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
+  const { elementRef: resizeRef } = UseResizeObserver<HTMLDivElement>(
+    (entry) => {
+      const element = entry.target as HTMLDivElement;
+      if (element) {
+        const { scrollLeft, scrollWidth, clientWidth } = element;
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+      }
+    },
+  );
+
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;
@@ -56,7 +69,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
         left: -scrollAmount(),
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -65,7 +78,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
         left: scrollAmount(),
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -83,31 +96,34 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
       const scrollPosition = (cardWidth + gap) * index;
       carouselRef.current.scrollTo({
         left: scrollPosition,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
       setCurrentIndex(index);
     }
   };
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      setIsMobile(window.innerWidth < 768);
+      checkScrollability();
+    };
 
     check(); // run once on mount
-    window.addEventListener("resize", check);
+    window.addEventListener('resize', check);
 
-    return () => window.removeEventListener("resize", check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   return (
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex }}
     >
-      <div className="py-10 md:py-20">
-        <div className="relative">
-          <div className="absolute inset-y-0 z-40 flex">
+      <div className='py-10 md:py-20'>
+        <div className='relative'>
+          <div className='absolute inset-y-0 z-40 flex'>
             {/* Left button */}
             <button
-              className="h-full w-10 
+              className='h-full w-10 
               bg-gray-100
               enabled:opacity-50
               disabled:opacity-20
@@ -115,31 +131,28 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
               disabled:rounded-3xl
               disabled:transition-all
               disabled:duration-300
-              disabled:ease-in-out"
+              disabled:ease-in-out'
               onClick={scrollLeft}
               disabled={!canScrollLeft}
             >
-              <IconArrowNarrowLeft className="h-full w-full text-gray-500" />
+              <IconArrowNarrowLeft className='h-full w-full text-gray-500' />
             </button>
           </div>
           {/* Carousel Card container */}
           <div
-            className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth [scrollbar-width:none]"
+            className='flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth scrollbar-none'
             ref={carouselRef}
             onScroll={checkScrollability}
           >
             <div
               className={cn(
-                "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l",
+                'absolute right-0 z-1000 h-auto w-[5%] overflow-hidden bg-gradient-to-l',
               )}
             />
 
             <div
               ref={cardRef}
-              className={cn(
-                "flex flex-row justify-start gap-4",
-                "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
-              )}
+              className={cn('flex flex-row justify-start gap-4', 'mx-auto')}
             >
               {items.map((item, index) => (
                 <motion.div
@@ -153,11 +166,11 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                     transition: {
                       duration: 0.5,
                       delay: 0.2 * index,
-                      ease: "easeOut",
+                      ease: 'easeOut',
                     },
                   }}
-                  key={"card" + index}
-                  className="rounded-3xl"
+                  key={'card' + index}
+                  className='rounded-3xl'
                 >
                   {item}
                 </motion.div>
@@ -165,9 +178,9 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
             </div>
           </div>
           {/* Right button */}
-          <div className="absolute right-0 top-0 bottom-0 z-40 flex items-center">
+          <div className='absolute right-0 top-0 bottom-0 z-40 flex items-center'>
             <button
-              className="h-full w-10 
+              className='h-full w-10 
               bg-gray-100
               enabled:opacity-50
               disabled:opacity-20
@@ -175,11 +188,11 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
               disabled:rounded-3xl
               disabled:transition-all
               disabled:duration-300
-              disabled:ease-in-out"
+              disabled:ease-in-out'
               onClick={scrollRight}
               disabled={!canScrollRight}
             >
-              <IconArrowNarrowRight className="h-full w-full text-gray-500" />
+              <IconArrowNarrowRight className='h-full w-full text-gray-500' />
             </button>
           </div>
         </div>

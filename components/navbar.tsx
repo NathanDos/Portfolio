@@ -11,7 +11,7 @@ import NavItem from './nav-item';
 
 export default function Navbar() {
   // Hooks
-  const { elementRef, elementHeight } = UseResizeObserver();
+  const { elementRef, elementHeight } = UseResizeObserver<HTMLDivElement>();
   const { isVisible } = handleNavbar(elementHeight);
 
   // Constants
