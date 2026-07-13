@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { CardType } from './carousel-cards';
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useContext, useCallback } from 'react';
 import { IconX } from '@tabler/icons-react';
 import { useOutsideClick } from '../hooks/use-outside-click';
 import { CarouselContext } from './carousel-cards';
@@ -22,6 +22,14 @@ export const CarouselCard = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  //Needs callback to prevent stale closure issues when using the handleClose function inside the useEffect hook.
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    onCardClose(index);
+  }, [onCardClose, index]);
   // Handle Escape key to close the card and manage body overflow when the card is open
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -38,17 +46,9 @@ export const CarouselCard = ({
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [open]);
+  }, [open, handleClose]);
 
   useOutsideClick(containerRef, () => handleClose());
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
-  };
 
   // The Card component renders a button that displays the card's category and title.
   // When clicked, it opens a modal-like view of the card with its content.
