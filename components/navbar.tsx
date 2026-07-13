@@ -8,6 +8,8 @@ import { UseResizeObserver } from '@/hooks/use-resize-observer';
 import { ThemeToggle } from './styling/theme-toggle';
 //Custom components
 import NavItem from './nav-item';
+//Styling
+import '@/styling/component-styling.css';
 
 export default function Navbar() {
   // Hooks
@@ -27,8 +29,8 @@ export default function Navbar() {
         transition={{ duration: DURATION }}
         className={`w-full h-16 bg-gray-800 text-white flex items-center justify-between px-4 fixed top-0 left-0 z-50`}
       >
-        <div className='text-lg font-bold'>Nathan Dos Santos' Portfolio</div>
-        <ul className='flex space-x-4'>
+        <div className='nav-text'>Nathan Dos Santos' Portfolio</div>
+        <ul className='flex space-x-4 nav-text'>
           <NavItem href='#top' text='Home' />
           <NavItem href='#work-experience' text='Work Experience' />
           <NavItem href='#strengths' text='Strengths' />

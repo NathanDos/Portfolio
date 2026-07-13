@@ -1,3 +1,5 @@
-@import "tailwindcss";
-/* ignore @custom-variant dark unknown rule */
-@custom-variant dark (&:where(.dark, .dark *));
+@import 'tailwindcss';
+
+@variant dark (&:where(.dark, .dark *));
+
+/*Pick a balanced 3 to 5-color palette using the 60-30-10 rule: 60% dominant neutral (backgrounds), 30% secondary (text/cards), and 10% bold accent (call-to-actions).*/

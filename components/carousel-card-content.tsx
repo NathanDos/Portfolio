@@ -1,10 +1,10 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { CardType } from "./carousel-cards";
-import { useEffect, useRef, useState, useContext } from "react";
-import { IconX } from "@tabler/icons-react";
-import { useOutsideClick } from "../hooks/use-outside-click";
-import { CarouselContext } from "./carousel-cards";
-import { BlurImage } from "./styling/blur-image";
+import { AnimatePresence, motion } from 'framer-motion';
+import { CardType } from './carousel-cards';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { IconX } from '@tabler/icons-react';
+import { useOutsideClick } from '../hooks/use-outside-click';
+import { CarouselContext } from './carousel-cards';
+import { BlurImage } from './styling/blur-image';
 
 //Card component is used to display individual cards in the carousel.
 // It manages its own open/close state and handles user interactions such as opening the card to view more details and closing it.
@@ -25,19 +25,19 @@ export const CarouselCard = ({
   // Handle Escape key to close the card and manage body overflow when the card is open
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         handleClose();
       }
     }
 
     if (open) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
   useOutsideClick(containerRef, () => handleClose());
@@ -58,12 +58,12 @@ export const CarouselCard = ({
     <>
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 h-screen overflow-auto">
+          <div className='fixed inset-0 z-50 h-screen overflow-auto scrollbar-none'>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
+              className='fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg'
             />
             <motion.div
               initial={{ opacity: 0 }}
@@ -71,27 +71,27 @@ export const CarouselCard = ({
               exit={{ opacity: 0 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative z-[60] mx-auto my-10 h-fit max-w-5xl rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900"
+              className='relative z-60 mx-auto my-10 h-fit max-w-5xl rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900'
             >
               <button
-                className="sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-black dark:bg-white"
+                className='sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-black dark:bg-white'
                 onClick={handleClose}
               >
-                <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
+                <IconX className='h-6 w-6 text-neutral-100 dark:text-neutral-900' />
               </button>
               <motion.p
                 layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-black dark:text-white"
+                className='text-base font-medium text-black dark:text-white'
               >
                 {card.category}
               </motion.p>
               <motion.p
                 layoutId={layout ? `title-${card.title}` : undefined}
-                className="mt-4 text-2xl font-semibold text-neutral-700 md:text-5xl dark:text-white"
+                className='mt-4 text-2xl font-semibold text-neutral-700 md:text-5xl dark:text-white'
               >
                 {card.title}
               </motion.p>
-              <div className="py-10">{card.content}</div>
+              <div className='py-10'>{card.content}</div>
             </motion.div>
           </div>
         )}
@@ -99,19 +99,19 @@ export const CarouselCard = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-full w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900"
+        className='relative z-10 flex h-full w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-160 md:w-96 dark:bg-neutral-900'
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
-        <div className="relative z-40 p-8">
+        <div className='pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-linear-to-b from-black/50 via-transparent to-transparent' />
+        <div className='relative z-40 p-8'>
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-left font-sans text-sm font-medium text-white md:text-base"
+            className='text-left font-sans text-sm font-medium text-white md:text-base'
           >
             {card.category}
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
+            className='mt-2 max-w-xs text-left font-sans text-xl font-semibold text-balance text-white md:text-3xl'
           >
             {card.title}
           </motion.p>
@@ -120,7 +120,7 @@ export const CarouselCard = ({
           src={card.src}
           alt={card.title}
           fill
-          className="absolute inset-0 z-10 object-cover"
+          className='absolute inset-0 z-10 object-cover'
         />
       </motion.button>
     </>
