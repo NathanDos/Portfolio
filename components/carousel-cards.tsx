@@ -1,6 +1,12 @@
 'use client';
 //node_modules
-import React, { useEffect, useState, createContext, JSX } from 'react';
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  JSX,
+  useCallback,
+} from 'react';
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from '@tabler/icons-react';
 import { motion } from 'motion/react';
 //Utils
@@ -49,21 +55,20 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
       }
     },
   );
+  const checkScrollability = useCallback(() => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+    }
+  }, []);
 
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;
       checkScrollability();
     }
-  }, [initialScroll]);
-
-  const checkScrollability = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
-    }
-  };
+  }, [initialScroll, checkScrollability]);
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -112,7 +117,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     window.addEventListener('resize', check);
 
     return () => window.removeEventListener('resize', check);
-  }, []);
+  }, [checkScrollability]);
 
   return (
     <CarouselContext.Provider
