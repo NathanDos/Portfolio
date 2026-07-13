@@ -1,7 +1,5 @@
-@import 'tailwindcss';
-
 @layer components {
   .nav-text {
-    @apply font-bold sm:text-xs md:text-sm lg:text-lg text-[--color-text];
+    @apply font-bold sm:text-xs md:text-sm lg:text-lg;
   }
 }

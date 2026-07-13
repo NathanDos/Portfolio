@@ -8,8 +8,6 @@ import { UseResizeObserver } from '@/hooks/use-resize-observer';
 import { ThemeToggle } from './styling/theme-toggle';
 //Custom components
 import NavItem from './nav-item';
-//Styling
-import '@/styling/component-styling.css';
 
 export default function Navbar() {
   // Hooks
